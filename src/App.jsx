@@ -82,7 +82,9 @@ function App() {
             })}
           </ToDoList>
           <Footer>
-            <Dialog isOpen={showDialog} onClose={toggleShowDialog}></Dialog>
+            <Dialog isOpen={showDialog} onClose={toggleShowDialog} className="dialog">
+              <p>This modal dialog has a groovy backdrop!</p>
+            </Dialog>
             <FabButton onClick={toggleShowDialog}>
               <IconPlus />
             </FabButton>
