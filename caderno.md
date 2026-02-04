@@ -157,3 +157,9 @@ Resumão:
 `useEffect(fn, []) `-> "Rode uma vez (no nascimento)."
 
 `useEffect(fn) `-> "Rode sempre que o componente respirar."
+
+### Sacadas de negócio
+
+Como o objetivo passado foi o de criar os elementos sem alterar a regra de negócio, é interessante ressaltar que o componente `<form></form>` também deverá ser um componente próprio para não prejudicar a regra de negócios da aplicação.
+
+Agora é que vem a pergunta: Quando vale a pena separar o componente ou simplesmente chamar uma tag no App.jsx (raiz do projeto?)

@@ -10,8 +10,3 @@ body {
   background-position: top center;
   background-size: auto;
 }
-.form-item-add-modify {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
