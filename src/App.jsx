@@ -75,6 +75,20 @@ function App() {
     console.log("Alternar Modal");
   };
 
+  const toggleTodoCompleted = (todo) => {
+    setTodos((prevState) => {
+      return prevState.map((t) => {
+        if (t.id === todo.id) {
+          return {
+            ...t,
+            completed: !t.completed,
+          };
+        }
+        return t;
+      });
+    });
+  };
+
   const addToDo = (formdata) => {
     const description = formdata.get("description");
     setTodos((prevState) => {
@@ -109,7 +123,13 @@ function App() {
               .filter((t) => !t.completed)
               //Percorre esse novo Array e exibe na tela dentro do componente ToDoItem
               .map(function (t) {
-                return <ToDoItem key={t.id} item={t} />;
+                return (
+                  <ToDoItem
+                    key={t.id}
+                    item={t}
+                    onToggleCompleted={toggleTodoCompleted}
+                  />
+                );
               })}
           </ToDoList>
           <SubHeading>Concluído</SubHeading>
@@ -123,7 +143,11 @@ function App() {
               })}
           </ToDoList>
           <Footer>
-            <Dialog isOpen={showDialog} onClose={toggleShowDialog} className="dialog">
+            <Dialog
+              isOpen={showDialog}
+              onClose={toggleShowDialog}
+              className="dialog"
+            >
               <ToDoForm onSubmit={addToDo} />
             </Dialog>
             <FabButton onClick={toggleShowDialog}>
