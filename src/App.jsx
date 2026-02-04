@@ -74,21 +74,6 @@ function App() {
     setShowDialog(!showDialog);
   };
 
-  const toggleTodoCompleted = (todo) => {
-    setTodos((prevState) => {
-      return prevState.map((t) => {
-        if (t.id === todo.id) {
-          return {
-            ...t,
-            completed: !t.completed,
-          };
-        }
-        return t;
-      });
-    });
-    console.table(todos);
-  };
-
   const addToDo = (formdata) => {
     const description = formdata.get("description");
     setTodos((prevState) => {
@@ -106,6 +91,26 @@ function App() {
     });
     toggleShowDialog();
   };
+  const toggleTodoCompleted = (todo) => {
+    setTodos((prevState) => {
+      return prevState.map((t) => {
+        if (t.id === todo.id) {
+          return {
+            ...t,
+            completed: !t.completed,
+          };
+        }
+        return t;
+      });
+    });
+    console.table(todos);
+  };
+  const deleteTodo = (todo) => {
+    setTodos((prevState) => {
+      return prevState.filter((t) => t.id != todo.id);
+    });
+  };
+  // Renderização
   return (
     <main>
       <Container>
@@ -128,6 +133,7 @@ function App() {
                     key={t.id}
                     item={t}
                     onToggleCompleted={toggleTodoCompleted}
+                    onDeleteTodo={deleteTodo}
                   />
                 );
               })}
@@ -144,6 +150,7 @@ function App() {
                     key={t.id}
                     item={t}
                     onToggleCompleted={toggleTodoCompleted}
+                    onDeleteTodo={deleteTodo}
                   />
                 );
               })}
