@@ -86,6 +86,7 @@ function App() {
         return t;
       });
     });
+    console.table(todos);
   };
 
   const addToDo = (formdata) => {
@@ -138,7 +139,13 @@ function App() {
               .filter((t) => t.completed)
               //Percorre esse novo Array e exibe na tela dentro do componente ToDoItem
               .map(function (t) {
-                return <ToDoItem key={t.id} item={t} />;
+                return (
+                  <ToDoItem
+                    key={t.id}
+                    item={t}
+                    onToggleCompleted={toggleTodoCompleted}
+                  />
+                );
               })}
           </ToDoList>
           <Footer>
