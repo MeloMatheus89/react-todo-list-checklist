@@ -72,7 +72,6 @@ function App() {
 
   const toggleShowDialog = () => {
     setShowDialog(!showDialog);
-    console.log("Alternar Modal");
   };
 
   const toggleTodoCompleted = (todo) => {
@@ -104,7 +103,7 @@ function App() {
       };
       return [...prevState, todo];
     });
-    toggleShowDialog;
+    toggleShowDialog();
   };
   return (
     <main>
