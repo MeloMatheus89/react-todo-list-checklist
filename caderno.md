@@ -163,3 +163,32 @@ Resumão:
 Como o objetivo passado foi o de criar os elementos sem alterar a regra de negócio, é interessante ressaltar que o componente `<form></form>` também deverá ser um componente próprio para não prejudicar a regra de negócios da aplicação.
 
 Agora é que vem a pergunta: Quando vale a pena separar o componente ou simplesmente chamar uma tag no App.jsx (raiz do projeto?)
+
+### Recortes para usar depois ou partes removidas do código
+
+```
+  <SubHeading>Para estudar</SubHeading>
+           <ToDoList>
+            {todos
+              //Filtra todos os que não estão completed e retorna um array
+              .filter((t) => !t.completed)
+              //Percorre esse novo Array e exibe na tela dentro do componente ToDoItem
+              .map(function (t) {
+                return <ToDoItem key={t.id} item={t} onToggleCompleted={toggleTodoCompleted} onDeleteTodo={deleteTodo} />;
+              })}
+          </ToDoList>
+```
+
+```
+<SubHeading>Concluído</SubHeading>
+          <ToDoList>
+            {todos
+              //Filtra todos os que estão completed e retorna um array
+              .filter((t) => t.completed)
+              //Percorre esse novo Array e exibe na tela dentro do componente ToDoItem
+              .map(function (t) {
+                return <ToDoItem key={t.id} item={t} onToggleCompleted={toggleTodoCompleted} onDeleteTodo={deleteTodo} />;
+              })}
+          </ToDoList>
+
+```
