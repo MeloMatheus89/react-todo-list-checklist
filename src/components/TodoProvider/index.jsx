@@ -6,6 +6,20 @@ const TODOS = "todos";
 export function TodoProvider({ children }) {
   const savedTodos = localStorage.getItem(TODOS);
   const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : []);
+  const [selectedTodo, setSelectedTodo] = useState();
+
+  const [showDialog, setShowDialog] = useState(false);
+  const openFormTodoDialog = (todo) => {
+    if (todo) {
+      setSelectedTodo(todo);
+    }
+    setShowDialog(true);
+  };
+
+  const closeFormTodoDialog = () => {
+    setShowDialog(false);
+    setSelectedTodo(null);
+  };
 
   useEffect(() => {
     localStorage.setItem(TODOS, JSON.stringify(todos));
@@ -46,5 +60,20 @@ export function TodoProvider({ children }) {
       return prevState.filter((t) => t.id != todo.id);
     });
   };
-  return <TodoContext value={{ todos, addToDo, toggleTodoCompleted, deleteTodo }}>{children}</TodoContext>;
+  return (
+    <TodoContext
+      value={{
+        todos,
+        addToDo,
+        toggleTodoCompleted,
+        deleteTodo,
+        showDialog,
+        openFormTodoDialog,
+        closeFormTodoDialog,
+        selectedTodo,
+      }}
+    >
+      {children}
+    </TodoContext>
+  );
 }
