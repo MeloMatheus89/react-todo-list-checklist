@@ -9,6 +9,7 @@ export function TodoProvider({ children }) {
   const [selectedTodo, setSelectedTodo] = useState();
 
   const [showDialog, setShowDialog] = useState(false);
+  // Esse aqui ficou estranho. Vamos tentar explicar... "abre o formulário e pergunta: Existe um todo associado? Se sim, seleciona o ToDo e altera o estado do ToDo para ser trabalhado posteriormente (editar)"
   const openFormTodoDialog = (todo) => {
     if (todo) {
       setSelectedTodo(todo);
@@ -41,6 +42,7 @@ export function TodoProvider({ children }) {
       return [...prevState, todo];
     });
   };
+
   const toggleTodoCompleted = (todo) => {
     setTodos((prevState) => {
       return prevState.map((t) => {
@@ -55,11 +57,28 @@ export function TodoProvider({ children }) {
     });
     console.table(todos);
   };
+
   const deleteTodo = (todo) => {
     setTodos((prevState) => {
       return prevState.filter((t) => t.id != todo.id);
     });
   };
+
+  const editTodo = (formData) => {
+    setTodos((prevState) => {
+      return prevState.map((t) => {
+        if (t.id === selectedTodo.id) {
+          return {
+            ...t,
+            description: formData.get("description"),
+          };
+        }
+        return t;
+      });
+    });
+    console.table(todos);
+  };
+
   return (
     <TodoContext
       value={{
@@ -71,8 +90,8 @@ export function TodoProvider({ children }) {
         openFormTodoDialog,
         closeFormTodoDialog,
         selectedTodo,
-      }}
-    >
+        editTodo,
+      }}>
       {children}
     </TodoContext>
   );

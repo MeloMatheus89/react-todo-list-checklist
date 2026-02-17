@@ -3,7 +3,7 @@ import "./dialog.style.css";
 import { IconClose } from "../icons";
 
 export function Dialog({ isOpen, onClose, children }) {
-  //Não devemos fazer esse tipo de buscas no DOM desse jeito
+  //Não devemos fazer esse tipo de buscas no DOM desse jeito: linha comentada
   //const dialog = document.querySelector("dialog");
 
   const dialogRef = useRef(null);
@@ -16,6 +16,15 @@ export function Dialog({ isOpen, onClose, children }) {
       closeDialog();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    dialog?.addEventListener("close", onClose);
+    // Essa função será executada quando o componente for desmontado (parar de ser renderizado)
+    return () => {
+      dialog?.removeEventListener("close", onClose);
+    };
+  }, [onClose]);
 
   // "Show the dialog" button opens the dialog modally
   const openDialog = () => {

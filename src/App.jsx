@@ -10,6 +10,7 @@ import { IconPlus, IconSchool } from "./components/icons";
 import { ToDoForm } from "./components/ToDoForm";
 import TodoContext from "./components/TodoProvider/TodoContext";
 import { TodoGroup } from "./components/TodoGroup";
+import { EmptyState } from "./components/EmptyState";
 
 // const todos = [
 //   {
@@ -53,16 +54,14 @@ import { TodoGroup } from "./components/TodoGroup";
 // ];
 
 function App() {
-  const {
-    todos,
-    addToDo,
-    showDialog,
-    openFormTodoDialog,
-    closeFormTodoDialog,
-    selectedTodo,
-  } = use(TodoContext);
+  const { todos, addToDo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo, editTodo } = use(TodoContext);
   function handleFormSubmit(formData) {
-    addToDo(formData);
+    if (selectedTodo) {
+      editTodo(formData);
+    } else {
+      addToDo(formData);
+    }
+
     closeFormTodoDialog();
   }
 
@@ -83,6 +82,8 @@ function App() {
               //Filtra todos os que não estão completed e retorna um array
               .filter((t) => !t.completed)}
           />
+          {/* Renderização condicional */}
+          {todos.length === 0 && <EmptyState />}
           <TodoGroup
             heading="Concluido"
             items={todos
@@ -91,17 +92,14 @@ function App() {
           />
 
           <Footer>
-            <Dialog
-              isOpen={showDialog}
-              onClose={closeFormTodoDialog}
-              className="dialog"
-            >
+            <Dialog isOpen={showDialog} onClose={closeFormTodoDialog} className="dialog">
               <ToDoForm
                 onSubmit={handleFormSubmit}
+                // Se o selectedTodo for nulo, pode deixar nulo mesmo e não precisa acessar a description. Para isso que serve o ponto de interrogação.
                 defaultValue={selectedTodo?.description}
               />
             </Dialog>
-            <FabButton onClick={openFormTodoDialog}>
+            <FabButton onClick={() => openFormTodoDialog()}>
               <IconPlus />
             </FabButton>
           </Footer>
