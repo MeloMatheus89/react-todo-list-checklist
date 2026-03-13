@@ -9,7 +9,7 @@ export function TodoProvider({ children }) {
   const [selectedTodo, setSelectedTodo] = useState();
 
   const [showDialog, setShowDialog] = useState(false);
-  // Esse aqui ficou estranho. Vamos tentar explicar... "abre o formulário e pergunta: Existe um todo associado? Se sim, seleciona o ToDo e altera o estado do ToDo para ser trabalhado posteriormente (editar)"
+  // Esse aqui ficou estranho. Vamos tentar explicar... "abre o formulário e pergunta: Existe um ToDo associado? Se sim, seleciona o ToDo e altera o estado do ToDo para ser trabalhado posteriormente (editar)"
   const openFormTodoDialog = (todo) => {
     if (todo) {
       setSelectedTodo(todo);
